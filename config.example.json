@@ -1,4 +1,19 @@
 {
   "alias": "bj",
-  "port": "2375"
+  "port": "2375",
+  "db": {
+    "client": "sqlite3",
+    "useNullAsDefault": false,
+    "connection": {
+      "filename": "./data/dev.db"
+    },
+    "debug": false,
+    "migrations": {
+      "directory": "./data/migrations",
+      "tableName": "migrations"
+    },
+    "seeds": {
+      "directory": "./data/seeds"
+    }
+  }
 }

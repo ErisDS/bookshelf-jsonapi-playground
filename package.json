@@ -4,10 +4,15 @@
   "description": "Playing with wiring up bookshelf & a JSONAPI.org API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "dbreset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
-  "author": "",
+  "author": "Hannah Wolfe",
   "license": "MIT",
+  "optionalDependencies": {
+    "mysql": "2.11.2",
+    "sqlite3": "3.1.4"
+  },
   "dependencies": {
     "bluebird": "3.4.1",
     "bookshelf": "0.10.0",
@@ -18,6 +23,7 @@
     "jsonapi-query-parser": "1.2.1",
     "knex": "0.11.9",
     "lodash": "4.13.1",
+    "moment": "^2.14.1",
     "nconf": "0.8.4"
   }
 }
