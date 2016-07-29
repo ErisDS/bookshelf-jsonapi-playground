@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "bluebird": "3.4.1",
+    "body-parser": "1.15.2",
     "bookshelf": "0.10.0",
     "bookshelf-jsonapi-params": "0.6.2",
     "debug": "2.2.0",
@@ -23,7 +24,7 @@
     "jsonapi-query-parser": "1.2.1",
     "knex": "0.11.9",
     "lodash": "4.13.1",
-    "moment": "^2.14.1",
+    "moment": "2.14.1",
     "nconf": "0.8.4"
   }
 }

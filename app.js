@@ -1,20 +1,29 @@
-var express = require('express'),
-    debug   = require('./lib/debug')('app'),
-    server  = require('./lib/server'),
-    models  = require('./models'),
-    app;
+var express    = require('express');
+var bodyParser = require('body-parser');
+var debug      = require('./lib/debug')('app');
+var server     = require('./lib/server');
+var api        = require('./lib/api');
 
-app = express();
+var app = express();
+
+// Configure express
+app.set('x-powered-by', false);
+app.set('query parser', false);
+
+// Should this live in the API ?
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    debug('Serving /');
-    res.sendStatus(200);
-});
-
-app.get('/post', function (req, res) {
-    models.Post.read({id: 3}).then(function (result) {
-       res.send(result.toJSON());
+    // This should work the same as if we called via HTTP
+    // The same permisions should be applied, and we should get back a JSON response
+    // Question, should it be Bookshelf JSON or JSONAPI?
+    api.posts.read().then(function (post) {
+        console.log('READ a post', post);
+        res.status(200).send('Hello World');
     });
 });
+
+// We load a full API as one thing, like this:
+app.use('/api/v1', api.stack);
 
 server.start(app);
