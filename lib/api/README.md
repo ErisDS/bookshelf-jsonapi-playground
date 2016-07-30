@@ -15,7 +15,7 @@ At controller/method level: (api middleware)
 API middleware looks like:
 
 function apiMiddleware(areq, ares, anext) {
-    // Do some stufff
+    // Do some stuff
     anext();
 }
 
@@ -36,4 +36,22 @@ APIResponse = {
     resultModel: {}, // Bookshelf's result
     resultJSON: {} // Formatted result
 }
+
+Ability to define an API Method:
+
+- resource E.g. posts
+- operation E.g. read
+- http route E.g. /posts/:id
+- http method E.g. GET
+
+
+- resource E.g. posts
+- operation E.g. publish (non standard)
+- http route E.g. /posts/:id/publish
+- http method E.g. PUT
+- model method that can be looked up
+
+- standard actions have standardised options that can be passed in
+- nonstandard actions will need a definition for options & their validation
+
 

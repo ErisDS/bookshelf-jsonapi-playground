@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dbreset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
+    "test": "mocha $(find test -name '*.test.js')",
+    "coverage": "istanbul cover --dir test/coverage -x '**/vendor/**' ./node_modules/.bin/_mocha -- $(find test -name '*.test.js') ",
+    "db-reset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "author": "Hannah Wolfe",
   "license": "MIT",
@@ -20,11 +22,20 @@
     "bookshelf-jsonapi-params": "0.6.2",
     "debug": "2.2.0",
     "express": "4.14.0",
+    "ghost-bookshelf-jsonapi": "0.0.0",
     "jsonapi-mapper": "0.9.0",
     "jsonapi-query-parser": "1.2.1",
     "knex": "0.11.9",
-    "lodash": "4.13.1",
+    "lodash": "^4.13.1",
     "moment": "2.14.1",
     "nconf": "0.8.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "sinon": "^1.17.5",
+    "sinon-as-promised": "^4.0.2",
+    "supertest": "^2.0.0"
   }
 }
