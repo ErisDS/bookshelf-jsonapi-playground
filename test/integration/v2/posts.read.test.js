@@ -3,8 +3,8 @@ var request = require('supertest');
 var expect = require('chai').expect;
 
 // What we're testing
-var app = require('../../app'),
-    apiBaseRoute = '/api/v1';
+var app = require('../../../app'),
+    apiBaseRoute = '/api/v2';
 
 describe('Post Integrated Read', function () {
 

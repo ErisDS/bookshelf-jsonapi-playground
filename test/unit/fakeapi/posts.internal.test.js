@@ -6,13 +6,13 @@
 // Test requirements
 var expect = require('chai').expect;
 var sinon  = require('sinon');
-var testUtils = require('../../utils');
+var testUtils = require('../utils');
 var sandbox = sinon.sandbox.create();
 
 // What we're testing
-var post = require('../../../../lib/fakeapi/resources/posts/internal');
+var post = require('../../../lib/fakeapi/resources/posts/internal');
 
-describe('Post Internal Read', function () {
+describe('Fake API Post Internal Read', function () {
     var APIRequest, APIResponse, modelStubs;
 
     beforeEach(function () {

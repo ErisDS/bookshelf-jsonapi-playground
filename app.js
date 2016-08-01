@@ -4,6 +4,7 @@ var debug      = require('./lib/vendor/debug')('app');
 var server     = require('./lib/vendor/server');
 var auth       = require('./lib/api/middleware/auth');
 var fakeapi    = require('./lib/fakeapi');
+var api        = require('./lib/api/jsonapi');
 
 var app = express();
 
@@ -14,18 +15,26 @@ app.set('query parser', false);
 // Should this live in the API ?
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
+app.get('/test1', function (req, res) {
     // This should work the same as if we called via HTTP
     // The same permisions should be applied, and we should get back a JSON response
-    // Question, should it be Bookshelf JSON or JSONAPI?
     fakeapi.posts.read({id: 4}).then(function (post) {
-        console.log('READ a post', post);
-        res.status(200).send('Hello World');
+        res.status(200).send(post.title);
+    });
+});
+
+app.get('/test2', function (req, res) {
+    // This should work the same as if we called via HTTP
+    // The same permisions should be applied, and we should get back a JSON response
+    api.posts.read({id: 4}).then(function (post) {
+        res.status(200).send(post.title);
     });
 });
 
 // We load a full API as one thing, like this:
 app.use('/api/v1', auth, fakeapi.stack);
+
+app.use('/api/v2', auth, api.router());
 
 server.start(app);
 

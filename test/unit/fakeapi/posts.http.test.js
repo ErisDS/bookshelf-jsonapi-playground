@@ -1,32 +1,40 @@
 /**
- * Test a method call API operation
+ * Test a HTTP call API operation
  *
  */
 
 // Test requirements
 var expect = require('chai').expect;
 var sinon  = require('sinon');
-var testUtils = require('../../utils');
+var testUtils = require('../utils');
 var sandbox = sinon.sandbox.create();
 
 // What we're testing
-var post = require('../../../../lib/fakeapi/resources/posts/method');
-var internal = require('../../../../lib/fakeapi/resources/posts/internal');
+var post = require('../../../lib/fakeapi/resources/posts/http');
+var internal = require('../../../lib/fakeapi/resources/posts/internal');
 
-describe('Post Method Read', function () {
-    var modelStubs, internalSpy;
+describe('Fake API Post HTTP Read', function () {
+    var req, res, modelStubs, internalSpy;
 
     beforeEach(function () {
         modelStubs = testUtils.stubPostModel(sandbox);
         internalSpy = sandbox.spy(internal, 'read');
+
+        req = {
+            params: {id: 4},
+            source: {user: {id: 1}}
+        };
+        res = {};
     });
 
     afterEach(function () {
         sandbox.restore();
     });
 
-    it('should accept a set of basic params & return bookshelf JSON', function (done) {
-        post.read({id: 4}, {user: {id: 1}}).then(function (result) {
+    it('should accept req, res & set a bookshelf Model as res.result', function (done) {
+        post.read(req, res, function () {
+            var result = res.apiResult.model.toJSON();
+
             expect(result).to.exist;
             expect(result.title).to.equal('fakePost');
 
