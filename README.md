@@ -37,9 +37,9 @@ E.g. `api.posts.read()`
 
 Whilst maintaining all the logic for santisation, validation, permissions and querying.
 
-Note that the response from these two calls is different.
-HTTP calls in JSONAPI compliant JSON
-Method calls result in standard bookshelf JSON
+Note that the response from these two calls is different:
+- HTTP calls in JSONAPI compliant JSON
+- Method calls result in "bookshelf" JSON (from calling model.toJSON())
 
 The reason for this is that interally, we never want or need to mess around with linked objects.
 JSONAPI is a serialization format, intended to be sent over the wire and makes sense for HTTP.
