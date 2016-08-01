@@ -1,57 +1,28 @@
-At HTTP level (express middleware)
-    - Authenticate
-    - Parse the data & params into a standardised format
+# API
+ 
+## API Example Version 2
 
-At controller/method level: (api middleware)
-    - Parse the data & options into a standardised format
-    - Clean data & options according to what is allowed
-    - Validate the remaining data
-    - Pre-fetch permissions
-    - Map opts to query function 
-    - Call query function & fetch data to return
-    - Post-fetch permissions
-    - Format data
+This demonstrates how the API might be built from configuration
+Using a 3rd party module which handles the key wiring
 
-API middleware looks like:
+- `jsonapi.js` - require & configure the ghost-bookshelf-jsonapi module
+- `middleware/` - any other api middleware, e.g. authentication, spam protection etc
 
-function apiMiddleware(areq, ares, anext) {
-    // Do some stuff
-    anext();
-}
+It shows a resource (posts) which has one operation (read). 
+The resource can be accessed via direct method call or over HTTP.
 
-The a's are to remind you these are not express request/response objects.
+Usage:
 
-APIRequest = {
-    resource: 'post',
-    method: 'PUT',
-    action: 'edit',
-    data: {},
-    options: {},
-}
+`fakeapi.posts.read({id: 4})` 
 
-APIResponse = {
-    request: APIRequest,
-    query: {
-    },
-    resultModel: {}, // Bookshelf's result
-    resultJSON: {} // Formatted result
-}
+This returns a Promise:
+  - resolves to Bookshelf JSON
+  - should reject to an Error
 
-Ability to define an API Method:
+`app.use('api/v2/', api.router())` 
 
-- resource E.g. posts
-- operation E.g. read
-- http route E.g. /posts/:id
-- http method E.g. GET
+`api.router()` uses an express.Router() internally
 
-
-- resource E.g. posts
-- operation E.g. publish (non standard)
-- http route E.g. /posts/:id/publish
-- http method E.g. PUT
-- model method that can be looked up
-
-- standard actions have standardised options that can be passed in
-- nonstandard actions will need a definition for options & their validation
+This mounts the `.http` version of each operation at the correct route. 
 
 
