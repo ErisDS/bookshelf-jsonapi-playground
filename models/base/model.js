@@ -1,6 +1,6 @@
 var _             = require('lodash');
-var debug         = require('../../lib/vendor/debug')('base:model');
-var db            = require('../../lib/vendor/db');
+var debug         = require('ghost-ignition').debug('base:model');
+var db            = require('../../lib/db');
 var plugins       = require('../plugins')
 var BaseBookshelf = require('bookshelf')(db);
 

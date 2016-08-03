@@ -1,4 +1,3 @@
-// Update with your config settings.
-var config = require('./lib/config');
+var config = require('ghost-ignition').config;
 
 module.exports = config.get('db');
